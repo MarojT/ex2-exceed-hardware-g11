@@ -22,19 +22,15 @@ void GET_traffic()
   {
     String payload = http.getString();
     deserializeJson(doc, payload);
-    
-    JsonArray all_trafic = doc["all_trafic"].as<JsonArray>();
+    JsonArray all_traffic = doc["all_traffic"].as<JsonArray>();
     int count =0;
-    for (JsonObject x: all_trafic)
-    {
-      if (count == 2 ) break;
-      if (x["point"] == nearby_1 || x["point"] == nearby_2)
-      {
-        ++count;
-        Serial.printf("%s %s\n",x["point"], x["traffic"]);
-      }
-    }
-
+    Serial.print(doc["all_traffic"][nearby_1-1]["point"].as<String>());
+    Serial.print(" ");
+    Serial.print(doc["all_traffic"][nearby_1-1]["traffic"].as<String>());
+    Serial.println("");
+    Serial.print(doc["all_traffic"][nearby_2-1]["point"].as<String>());
+    Serial.println(" ");
+    Serial.print(doc["all_traffic"][nearby_2-1]["point"].as<String>());
   }
   else
   {
@@ -54,7 +50,7 @@ void POST_traffic(String led)
   http.addHeader("Content-Type", "application/json");
 
   DynamicJsonDocument doc(2048);
-  doc["code"] = "11";
+  doc["code"] = "o6tfw";
   doc["traffic"] = led;
   
   serializeJson(doc, json);
