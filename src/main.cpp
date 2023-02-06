@@ -4,13 +4,13 @@
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
 #include <Bounce2.h>
-#include "traffic.h"
+//#include "traffic.h"
 
-#define red <led red pin>
-#define yellow <led yellow pin>
-#define green <led green pin>
-#define ldr <ldr pin>
-#define button <button pin>
+#define red 27
+#define yellow 26
+#define green 25
+#define ldr 32
+#define button 33
 
 #define light <แสดงมันมืด มีค่าเท่าไหร่>
 
@@ -29,29 +29,51 @@ void setup()
   pinMode(ldr, INPUT);
   debouncer.attach(button, INPUT_PULLUP);
   debouncer.interval(25);
-  Connect_Wifi();
+  //Connect_Wifi();
 
   delay(200);
   // start LED with GREEN and POST to database
   digitalWrite(green, HIGH);
-  POST_traffic("green");
+  //POST_traffic("green");
 }
 
 void loop()
 {
   // *** write your code here ***
   // Your can change everything that you want
+  debouncer.update();
   if (state == 1)
   {
     // while led GREEN
+    digitalWrite(red,LOW);
+    digitalWrite(green,HIGH );
+    
+    while(!debouncer.fell()) debouncer.update();
+
+    state =2;
+
   }
   else if (state == 2)
   {
-    // while led YELLOW
+    Serial.println("State2");
+    digitalWrite(green,LOW);
+    digitalWrite(yellow,HIGH);
+    delay(8000);
+    state = 3;
+
   }
   else if (state == 3)
   {
     // while led RED
+    Serial.println("State3");
+    digitalWrite(yellow, LOW);
+    digitalWrite(red,HIGH);
+    delay(5000);
+    while (true){
+      if(analogRead(ldr)<2000)
+        state = 1;
+        break;
+    }
   }
 }
 
