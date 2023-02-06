@@ -29,8 +29,9 @@ void GET_traffic()
     Serial.print(doc["all_traffic"][nearby_1-1]["traffic"].as<String>());
     Serial.println("");
     Serial.print(doc["all_traffic"][nearby_2-1]["point"].as<String>());
-    Serial.println(" ");
+    Serial.print(" ");
     Serial.print(doc["all_traffic"][nearby_2-1]["traffic"].as<String>());
+    Serial.println(" ");
   }
   else
   {

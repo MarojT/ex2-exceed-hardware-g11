@@ -28,12 +28,11 @@ void setup()
   pinMode(ldr, INPUT);
   debouncer.attach(button, INPUT_PULLUP);
   debouncer.interval(25);
-  //Connect_Wifi();
+  Connect_Wifi();
 
   delay(200);
   // start LED with GREEN and POST to database
   digitalWrite(green, HIGH);
-  //POST_traffic("green");
 }
 
 void loop()
@@ -46,6 +45,8 @@ void loop()
     // while led GREEN
     digitalWrite(red,LOW);
     digitalWrite(green,HIGH );
+    POST_traffic("green");
+    GET_traffic();
     
     while(!debouncer.fell()) debouncer.update();
 
@@ -57,6 +58,7 @@ void loop()
     Serial.println("State2");
     digitalWrite(green,LOW);
     digitalWrite(yellow,HIGH);
+    POST_traffic("yellow");
     delay(8000);
     state = 3;
 
@@ -67,6 +69,8 @@ void loop()
     Serial.println("State3");
     digitalWrite(yellow, LOW);
     digitalWrite(red,HIGH);
+    POST_traffic("red");
+    GET_traffic();
     delay(5000);
     while (true){
       if(analogRead(ldr)<2000)
