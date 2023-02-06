@@ -30,7 +30,7 @@ void GET_traffic()
     Serial.println("");
     Serial.print(doc["all_traffic"][nearby_2-1]["point"].as<String>());
     Serial.println(" ");
-    Serial.print(doc["all_traffic"][nearby_2-1]["point"].as<String>());
+    Serial.print(doc["all_traffic"][nearby_2-1]["traffic"].as<String>());
   }
   else
   {
