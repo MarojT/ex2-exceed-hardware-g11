@@ -4,8 +4,8 @@
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
 #include <Bounce2.h>
-//#include "traffic.h"
-
+#include "traffic.h"
+#include "connect.h"
 #define red 27
 #define yellow 26
 #define green 25
@@ -18,7 +18,6 @@ int state = 1;
 int count = 0;
 Bounce debouncer = Bounce();
 
-void Connect_Wifi();
 
 void setup()
 {
@@ -75,20 +74,4 @@ void loop()
         break;
     }
   }
-}
-
-void Connect_Wifi()
-{
-  const char *ssid = "Your Wifi Name";
-  const char *password = "Your Wifi Password";
-  WiFi.begin(ssid, password);
-  Serial.print("Connecting to WiFi");
-  while (WiFi.status() != WL_CONNECTED)
-  {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.print("OK! IP=");
-  Serial.println(WiFi.localIP());
-  Serial.println("----------------------------------");
 }
